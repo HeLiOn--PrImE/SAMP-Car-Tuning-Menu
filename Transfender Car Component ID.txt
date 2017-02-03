@@ -1,0 +1,32 @@
+ID 	Description
+1000 	Generic Spoiler
+1001 	Generic Spoiler
+1002 	Generic Spoiler
+1003 	Generic Spoiler
+1004 	Bonnet Scoop
+1005 	Bonnet Scoop
+1006 	Generic Vehicle Roof-Scoop
+1007 	Generic Vehicle Side Skirt (L)
+1008 	Nitrous - 5 Shots
+1009 	Nitrous - 2 Shots
+1010 	Nitrous - 10 Shots
+1011 	Bonnet Scoop
+1012 	Bonnet Scoop
+1013 	Round Fog Lamps
+1014 	Generic Spoiler
+1015 	Generic Spoiler
+1016 	Generic Spoiler
+1017 	Generic Vehicle Side Skirt (R)
+1018 	Curved Twin Cylinder Generic Exhaust
+1019 	Twin Cylinder Generic Exhaust
+1020 	Large Generic Exhaust
+1021 	Medium Generic Exhaust
+1022 	Small Generic Exhaust
+1023 	Generic Spoiler
+1024 	Square Fog Lamps
+1086 	Stereo Bass Boost
+1087 	Hydraulics
+1142 	Oval Bonnet Vents (R)
+1143 	Oval Bonnet Vents (L)
+1144 	Square Bonnet Vents (R)
+1145 	Square Bonnet Vents (L)
