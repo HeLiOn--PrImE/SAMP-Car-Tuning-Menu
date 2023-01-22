@@ -1,4 +1,4 @@
-// Car tunning menu v2.1, by HeLiOn PrImE
+// Car tunning menu v2.2, by HeLiOn PrImE
 // uncomment the line below if you want to write a filterscript
 #include <a_samp>
 #define FILTERSCRIPT
@@ -46,7 +46,7 @@ static pmodelid[MAX_PLAYERS]; // array containing players vehicle MODEL id (load
 public OnFilterScriptInit()
 {
 	print("\n--------------------------------------");
-	print(" Car tunning menu v.2.1, by HeLiOn PrImE, Rsts[Lucas] and kaisersouse");
+	print(" Car tunning menu v.2.2, by HeLiOn PrImE,\n Rsts[Lucas] and kaisersouse");
 	print("--------------------------------------\n");
 	return 1;
 }
