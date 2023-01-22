@@ -1,6 +1,6 @@
-// Car tunning menu v2.2, by HeLiOn PrImE
+// Car tunning menu v2.3, by HeLiOn PrImE
 // uncomment the line below if you want to write a filterscript
-#include <a_samp>
+#include <open.mp>
 #define FILTERSCRIPT
 #if defined FILTERSCRIPT
 //colors
@@ -46,7 +46,7 @@ static pmodelid[MAX_PLAYERS]; // array containing players vehicle MODEL id (load
 public OnFilterScriptInit()
 {
 	print("\n--------------------------------------");
-	print(" Car tunning menu v.2.2, by HeLiOn PrImE,\n Rsts[Lucas] and kaisersouse");
+	print(" Car tunning menu v.2.3, by HeLiOn PrImE,\n Rsts[Lucas] and kaisersouse");
 	print("--------------------------------------\n");
 	return 1;
 }
@@ -71,7 +71,8 @@ public OnPlayerConnect(playerid)
 	return 1;
 }
 
-public OnPlayerStateChange(playerid, newstate, oldstate) {
+public OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate)
+{
 	if(newstate == PLAYER_STATE_DRIVER) {
 	    pvehicleid[playerid] = GetPlayerVehicleID(playerid);
 	    pmodelid[playerid] = GetVehicleModel(pvehicleid[playerid]);
@@ -109,18 +110,17 @@ public OnPlayerCommandText(playerid, cmdtext[])
 {
 	if(!strcmp(cmdtext, "/tune", true))
 	{
-			new playerstate = GetPlayerState(playerid);
-			if(playerstate == PLAYER_STATE_DRIVER)
-			{
-	     		ShowPlayerDialog(playerid, DIALOG_TYPE_MAIN, DIALOG_STYLE_LIST, "Car Tuning Menu", "Paint Jobs\nColors\nHoods\nVents\nLights\nExhausts\nFront Bumpers\nRear Bumpers\nRoofs\nSpoilers\nSide Skirts\nBullbars\nWheels\nCar Stereo\nHydraulics\nNitrous Oxide\nRepair Car", "Enter", "Close");
-				return 1;
-			}
-			else
-			{
-			   return SendClientMessage(playerid, COLOR_RED, "[ERROR] You cannot modify/tune a car unless you are the driver.");		}
-			}
+		if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+		{
+	    	ShowPlayerDialog(playerid, DIALOG_TYPE_MAIN, DIALOG_STYLE_LIST, "Car Tuning Menu", "Paint Jobs\nColors\nHoods\nVents\nLights\nExhausts\nFront Bumpers\nRear Bumpers\nRoofs\nSpoilers\nSide Skirts\nBullbars\nWheels\nCar Stereo\nHydraulics\nNitrous Oxide\nRepair Car", "Enter", "Close");
+			return 1;
+		}
+		else
+		{
+		   return SendClientMessage(playerid, COLOR_RED, "[ERROR] You cannot modify/tune a car unless you are the driver.");		}
+		}
 	return 0;
-	}
+}
 
 //------------------------All car that are allowed to mod------------------------------------------------------------
 // Put here all car's id's yo want to be modable
@@ -135,7 +135,7 @@ public ModCar(playerid) { // changed to switch method to reduce processor load o
 		407,544,470,598,596,599,601,428,499,609,524,578,486,406,573,455,588,403,514,423,
 		414,443,515,456,422,482,530,418,572,413,440,543,583,478,554,402,542,603,475,568,504,457,
         483,508,429,541,415,480,434,506,451,555,477,400,404,489,479,442,458,467,558,444: {
-		    TogglePlayerControllable(playerid,0);
+		    TogglePlayerControllable(playerid,false);
  			return SendClientMessage(playerid, COLOR_WHITE, "[INFO] Select an item and push the SPACEBAR to approve.");
 		}
 		default: return SendClientMessage(playerid,COLOR_RED,"[WARNING] You are not allowed to modify/tune this vehicle");
@@ -153,7 +153,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 	return 1;
 }
 
-public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 {
 	return 1;
 }
@@ -449,7 +449,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 		        {
 		            new car = GetPlayerVehicleID(playerid);
-		            ChangeVehicleColor(car,0,0);
+		            ChangeVehicleColours(car,0,0);
 		            //GivePlayerMoney(playerid,-150);
 		            SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 		            ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -467,7 +467,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,1,1);
+			        ChangeVehicleColours(car,1,1);
 			    //    GivePlayerMoney(playerid,-150);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -484,7 +484,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,3,3);
+			        ChangeVehicleColours(car,3,3);
 			      //  GivePlayerMoney(playerid,-150);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -501,7 +501,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,79,79);
+			        ChangeVehicleColours(car,79,79);
 			     //   GivePlayerMoney(playerid,-150);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -518,7 +518,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,86,86);
+			        ChangeVehicleColours(car,86,86);
 			     //   GivePlayerMoney(playerid,-150);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -535,7 +535,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,6,6);
+			        ChangeVehicleColours(car,6,6);
 			      //  GivePlayerMoney(playerid,-150);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
@@ -552,7 +552,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,126,126);
+			        ChangeVehicleColours(car,126,126);
 			  //      GivePlayerMoney(playerid,-150);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
@@ -569,7 +569,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,66,66);
+			        ChangeVehicleColours(car,66,66);
 			    //    GivePlayerMoney(playerid,-150);
 	          		SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 	          		PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
@@ -586,7 +586,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if(GetPlayerMoney(playerid) >= 0)
 		        {
 		            new car = GetPlayerVehicleID(playerid);
-		            ChangeVehicleColor(car,24,24);
+		            ChangeVehicleColours(car,24,24);
 		            SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 		            PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 		            ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -602,7 +602,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,123,123);
+			        ChangeVehicleColours(car,123,123);
 	          		SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 	          		PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -618,7 +618,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,53,53);
+			        ChangeVehicleColours(car,53,53);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -634,7 +634,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,93,93);
+			        ChangeVehicleColours(car,93,93);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -650,7 +650,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	         if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,83,83);
+			        ChangeVehicleColours(car,83,83);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -666,7 +666,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,60,60);
+			        ChangeVehicleColours(car,60,60);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -682,7 +682,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,161,161);
+			        ChangeVehicleColours(car,161,161);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
@@ -698,7 +698,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         	        if(GetPlayerMoney(playerid) >= 0)
 			    {
 			        new car = GetPlayerVehicleID(playerid);
-			        ChangeVehicleColor(car,153,153);
+			        ChangeVehicleColours(car,153,153);
 			        SendClientMessage(playerid,COLOR_WHITE,"[INFO] You have succesfully repainted to car");
 			        PlayerPlaySound(playerid, 1134, 0.0, 0.0, 0.0);
 			        ShowPlayerDialog(playerid, DIALOG_TYPE_COLORS, DIALOG_STYLE_LIST, "Colors", "Black\nWhite\nRed\nBlue\nGreen\nYellow\nPink\nBrown\nGrey\nGold\nDark Blue\nLight Blue\nCold Green\nLight Grey\nDark Red\nDark Brown\n \nBack", "Apply", "Close");
